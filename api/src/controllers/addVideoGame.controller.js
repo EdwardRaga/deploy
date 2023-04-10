@@ -14,7 +14,7 @@ async function addVideoGame(req, res) {
     } = req.body;
     
 
-    let url = `http://localhost:3001/uploads/${req.file.filename}`
+    let url = `https://deploy-production-81f7.up.railway.app/${req.file.filename}`
 
  
     //crear el video juego en la db
