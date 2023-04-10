@@ -21,7 +21,10 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const {saveApiDataGenres,saveApiDataPlatforms} = require('./src/controllers/saveApiData.controller')
 const {fetchVideogames}= require('./src/controllers/getAllGames.controller')
-
+require('dotenv').config();
+const {
+  PORT
+} = process.env;
 // Llamamos a la función para cargar los datos de la API antes de iniciar el servidor
 
 // Syncing all the models at once.
@@ -31,8 +34,8 @@ async function main(){
 
     saveApiDataGenres()
     saveApiDataPlatforms()
-    server.listen(3001, () => {
-      console.log('%s listening at 3001'); // eslint-disable-line no-console
+    server.listen(PORT, () => {
+      console.log('%s listening at ' + PORT); // eslint-disable-line no-console
     });
   });
 }
