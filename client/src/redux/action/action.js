@@ -12,9 +12,10 @@ export const FILTERS = "FILTERS";
 export function getGames() {
   return async function (dispatch) {
     try {
-      const response = await fetch(`http://localhost:3001/videogames`);
-      const data = await response.json();
-      dispatch({ type: GET_GAMES, payload: data });
+      const response = await axios.get(`/videogames`);
+      console.log(response);
+      // const data = await response.json();
+      dispatch({ type: GET_GAMES, payload: response.data });
     } catch (error) {
       console.log(error);
      
@@ -25,9 +26,8 @@ export function getGames() {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      const response = await fetch(`http://localhost:3001/genres`);
-      const data = await response.json();
-      dispatch({ type: GET_GENRES, payload: data });
+      const response = await axios.get(`/genres`);
+      dispatch({ type: GET_GENRES, payload: response.data });
     } catch (e) {
       console.log(e);
     }
@@ -37,9 +37,9 @@ export function getGenres() {
 export function getPlaforms() {
   return async function (dispatch) {
     try {
-      const response = await fetch(`http://localhost:3001/platforms`);
-      const data = await response.json();
-      dispatch({ type: GET_PLATFORMS, payload: data });
+      const response = await axios.get(`/platforms`);
+      // const data = await response.json();
+      dispatch({ type: GET_PLATFORMS, payload: response.data });
     } catch (e) {
    
       console.log(e);
@@ -51,12 +51,12 @@ export function getPlaforms() {
 export function searchGame(name) {
   return async function (dispatch) {
     try {
-      let response = await fetch(
-        `http://localhost:3001/videogames/games/search?name=${name}`
+      let response = await axios.get(
+        `/videogames/games/search?name=${name}`
       );
-      let data = await response.json();
+      // let data = await response.json();
       // console.log(response)
-    dispatch({ type: SEARCH_GAME, payload: data });
+    dispatch({ type: SEARCH_GAME, payload: response.data });
     } catch (error) {
       // console.log(error);
       throw (error);
@@ -73,10 +73,8 @@ export function filters(games) {
 export async function addGame(videogame) {
   try {
     console.log(videogame);
-    const post = await axios.post("http://localhost:3001/videogames/", videogame);
-
+    const post = await axios.post("/videogames/", videogame);
     return post;
-   
   } catch (e) {
     console.log(e);
   }
@@ -85,11 +83,11 @@ export async function addGame(videogame) {
 export async function detailGame(id) {
   try {
     // console.log(id);
-    const response = await fetch(`http://localhost:3001/videogames/${id}`);
+    const response = await axios.get(`/videogames/${id}`);
 
-     let data = await response.json();
+    //  let data = await response.json();
     // console.log(data);
-    return data;
+    return response.data;
     // dispatch({ type: SEARCH_GAME, payload: data})
   } catch (e) {
     console.log(e);

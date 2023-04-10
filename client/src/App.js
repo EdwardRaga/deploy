@@ -5,6 +5,12 @@ import Form from './components/Form/Form';
 import Detail from './components/Detail/Detail';
 import Landing from './components/Landing/Landing';
 import { Route, useLocation} from 'react-router-dom';
+
+import axios from "axios";
+axios.defaults.baseURL = 'http://localhost:3001/';
+
+
+
 function App() {
 
   const location = useLocation()
