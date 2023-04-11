@@ -1,0 +1,29 @@
+.container{
+    background-color:#444444;
+    opacity: 0.9; /* Cambia este valor para ajustar el contraste */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    color: white;
+    padding: 10px;
+}
+.icons{
+
+}
+.icon{
+    margin:5px;
+    height: 50px;
+}
+#linkedin{
+    color:#0077B5;
+}
+#github{
+    color:#24292e
+}
+#email{
+    color: white; 
+    text-decoration: none;
+    
+}
