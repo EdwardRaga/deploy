@@ -7,7 +7,6 @@ import FilterRating from "../Filters/FilterRating/FilterRating";
 import FilterGenre from "../Filters/FilterGenre/FilterGenre";
 import FilterAZ from "../Filters/FilterAZ/FilterAZ";
 import FilterName from "../Filters/FilterName/FilterName";
-import Footer from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { getGames, getGenres } from "../../redux/action/action";
@@ -80,7 +79,6 @@ export default function Home() {
               />
             </div>
           )}
-          <Footer/>
         </div>
       )}
       {error && <p>{error}</p>}
