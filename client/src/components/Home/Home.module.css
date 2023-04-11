@@ -33,6 +33,7 @@ body{
         align-self: center;
         /* background-color: orangered; */
         padding: 10px;
+        /* background-color: aqua; */
     }
 
     .filters{
@@ -46,23 +47,55 @@ body{
         padding: 10px;
         
     }
+    .select{
+        /* margin-left: 20px; */
+        font-family: playfair;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        /* background-color: aquamarine; */
+    }
+ 
+    .filters select{
+        /* margin-left: 20px; */
+        /* width: 20%; */
+        display: flex;
+        flex-direction: row;
+        font-family: playfair;
+        font-size: 1em;
+        padding: 3px;
+        width: 100%;
+    }
+
+
+
+
+    .botones{
+        margin: 3px;
+        /* width: 100%; */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+    }
+    
+
     .filters a{
+        /* width: 100%; */
         text-decoration: none;
         color: white;
         /* align-items: center;
         text-align: center;
         align-self: center; */
         background-color: black;
-        padding: 3px;
-        margin-left: 20px;
+        padding: 10px;
+        /* margin-left: 20px; */
+        display: flex;
+        justify-content: center;
+        margin: 3px;
     }
-    .filters select{
-        padding: 3px;
-        font-size: 1em;
-        margin-left: 20px;
-        font-family: playfair;
-    }
-    
     
     .paginate{
         margin: 5px;
