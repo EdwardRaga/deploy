@@ -1,14 +1,17 @@
 .container{
     background-color:#444444;
     opacity: 0.9; /* Cambia este valor para ajustar el contraste */
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: column; */
     color: white;
-    padding: 10px;
+    padding: 20px;
+    /* height: 100%; */
+    margin-top: auto;
 }
+
 .icons{
 
 }
