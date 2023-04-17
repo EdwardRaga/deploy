@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import filterbdApi from "../Filters/FilterdbApi/FilterdbApi";
 import filterGenre from "../Filters/FilterGenre/filter";
+import axios from "axios"
 
 export default function useFilterGames(searchName, select, selectGenre) {
   const [games, setGames] = useState([]);
@@ -9,11 +10,11 @@ export default function useFilterGames(searchName, select, selectGenre) {
 
   useEffect(() => {
     setLoading(true);
-    let url = "http://localhost:3001/videogames";
+    let url = "/videogames";
     if (searchName.name.length > 0) {
       url = `${url}/games/search?name=${searchName.name}`;
     }
-    fetch(url)
+    axios.get(url)
       .then((response) => response.json())
       .then((data) => {
         let filteredGames = data;
