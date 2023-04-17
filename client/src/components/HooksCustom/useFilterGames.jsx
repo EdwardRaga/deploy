@@ -10,7 +10,7 @@ export default function useFilterGames(searchName, select, selectGenre) {
 
   useEffect(() => {
     setLoading(true);
-    let url = "/videogames";
+    let url = "https://deploy-production-81f7.up.railway.app/videogames";
     if (searchName.name.length > 0) {
       url = `${url}/games/search?name=${searchName.name}`;
     }
