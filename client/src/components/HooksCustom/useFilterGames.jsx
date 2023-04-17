@@ -14,7 +14,7 @@ export default function useFilterGames(searchName, select, selectGenre) {
     if (searchName.name.length > 0) {
       url = `${url}/games/search?name=${searchName.name}`;
     }
-    axios.get(url)
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         let filteredGames = data;
