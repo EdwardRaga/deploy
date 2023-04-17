@@ -2,7 +2,7 @@ import { GET_GAMES, SEARCH_GAME, FILTERS,GET_GENRES, GET_PLATFORMS } from "../ac
 
 const initialState = {
   videogames: [],
-  copygames:[], // copia de video juegos, filtrados.
+  copygames:[],
   genres:[],
   platforms:[]
 
@@ -36,7 +36,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         videogames: [...action.payload],
-        copygames:[...action.payload]
+        // copygames:[...action.payload]
       };
     //filtrar db/api
 

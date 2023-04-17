@@ -40,15 +40,11 @@ export default function Detail() {
 
   }
 
-
-
-
-
   return (
     <>
     {!loading && history && (
       <div className={style.goback}>
-      <Link onClick={handleClickBack} id={style.icon}> <FontAwesomeIcon  icon= {faBackward}/>Go Back</Link>
+      <Link onClick={handleClickBack} id={style.icon}> <FontAwesomeIcon  icon= {faBackward}/>GoBack</Link>
         </div>
     )}
 

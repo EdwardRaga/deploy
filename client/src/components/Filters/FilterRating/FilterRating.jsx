@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //mapear cada video juego
 //ir comrpbando si su raiting del juego sigueinte es menor  y si lo es cambiarlo y seguir validando, puedes
 // con un doble for
-export default function FilterRating() {
-  const state = useSelector((state) => state.copygames);
+export default function FilterRating({games,setgames}) {
+  const state = useSelector((state) => state.videogames);
   const dispatch = useDispatch();
 
   //manejador tiene que hacer un dispatch al SG
@@ -20,30 +20,21 @@ export default function FilterRating() {
   const handleClick = (event) => {
     event.preventDefault()
     const rating = event.target.name
-    dispatch(filters(filter(state,rating)))
+    console.log(state);
+    dispatch(filters(filter(games,rating)))
     
   };
 
   return (
     <div className={style.container}>
-    
-
    <Link name={"top"}  onClick={handleClick}>
     <FontAwesomeIcon icon={faTrophy}  style={{ color: "white" }}/>
     Best Rated
       </Link>
-      
-  
-    
-
    <Link name={"buttom"}  onClick={handleClick}>
     <FontAwesomeIcon icon={faGhost}  style={{ color: "white" }}/>
     Worst Rated
       </Link>
-
-  
-   
-
     </div>
   );
 }

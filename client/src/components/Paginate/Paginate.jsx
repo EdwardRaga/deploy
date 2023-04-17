@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import style from './Paginate.module.css'
 
-const Paginate = ({ videogames, setPaginate,setLanding }) => {
+const Paginate = ({ videogames, setPaginate,setLanding, paginate}) => {
 
   //pagina actual ---> iniciar en 1
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,14 +10,19 @@ const Paginate = ({ videogames, setPaginate,setLanding }) => {
   const totalPages = Math.ceil(videogames.length / 15);
   //array con el numero de paginas '100' --->[1,2,3,4,5,6,7]
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentPage]);
-
-
-//funcion manejadora de eventos en los botones del paginado
+  
+  
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [currentPage,videogames]);
+  
+    useEffect(() => {
+      if(currentPage !== 1) setCurrentPage(1)
+    }, [videogames]);
+  
+  
+  //funcion manejadora de eventos en los botones del paginado
   const handlePageClick = (pageNumber) => {
     const startIndex = (pageNumber - 1) * 15;
     const endIndex = startIndex + 15;
@@ -30,13 +35,12 @@ const Paginate = ({ videogames, setPaginate,setLanding }) => {
     if(videogames?.length > 1){
       setLanding(false)
       // setTimeout(()=>{
-      // },1000)
+        // },1000)
+        
+      }
+      setCurrentPage(pageNumber);
       
-    }
-    setCurrentPage(pageNumber);
-    
-  };
-
+    };
   return (
     videogames?.length > 5 && (<div className={style.pagination}>
       {pageNumbers.map((pageNumber) => (

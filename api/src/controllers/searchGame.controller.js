@@ -1,7 +1,7 @@
 require("dotenv").config();
 const axios = require("axios");
 const { Op } = require("sequelize");
-const { Videogame } = require("../db");
+const { Videogame,Genre } = require("../db");
 const { API_KEY } = process.env;
 const PAGE_SIZE = 15;
 //Array de objetos videogames
@@ -35,6 +35,10 @@ async function searchGame(req, res) {
 
     //buscar en la db
     let requestDb = await Videogame.findAll({
+      include: {
+        model: Genre,
+        attributes: ['name']
+      },
       where: {
         //operador or caso de que el nombre del juego se encuentren en minusculas o mayus
         [Op.or]: [
@@ -54,12 +58,13 @@ async function searchGame(req, res) {
       limit: PAGE_SIZE,
     });
      await requestDb;
+     console.log(requestDb);
      let allGames = result.concat(requestDb);
   
      if (allGames.length === 0) {
            throw new Error("No se encontraron videojuegos con el término de búsqueda proporcionado");
         } else {
-          if (allGames.length > 15) allGames = allGames.slice(0, 15);
+          // if (allGames.length > 15) allGames = allGames.slice(0, 15);
 
           res.status(200).json(allGames);
         }

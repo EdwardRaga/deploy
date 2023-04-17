@@ -1,37 +1,48 @@
 import React from "react";
-import style from '../FilterName/FilterName.module.css'
-import { useDispatch } from "react-redux"
+import style from "../FilterName/FilterName.module.css";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
-import { searchGame,getGames } from "../../../redux/action/action";
+import useFilterGames from "../../HooksCustom/useFilterGames";
+import { Ring } from "@uiball/loaders";
+
 //iconos
-import { faSearch,faGamepad, faHome,faCogs, faBriefcase} from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FilterName({setError}) {
-
-
-    
-  const [searchName, setsearchName] = useState({ name: "" });
+export default function FilterName({
+  setError,
+  setgames,
+  setLoadingFilters,
+  loadingFilters,
+}) {
   const dispatch = useDispatch();
+  const [searchName, setsearchName] = useState({ name: "" });
+  const dbApiSelected = document.getElementsByClassName("dbapi");
+  const dbApiArray = Array.from(dbApiSelected);
+  //si tengo una opcion seleccionada en el filtro db/api
+  const selectDbApi = dbApiArray.find((ele) => ele.selected);
+  const genreselected = document.getElementsByClassName("selectedGenre");
+  //si tengo una opcion seleccionada en el filtro genres
+  const genreArray = Array.from(genreselected);
+  const selectGenre = genreArray.find((ele) => ele.selected);
 
-  useEffect(()=>{
-    if(searchName.name.length === 0){
-      dispatch(getGames())
-      setError(null)
-    }
-    else{
-    setError(null)
-    dispatch(searchGame(searchName.name))
-    .then(null, (error)=> setError('No video games were found with the provided search term.'))
+  const [games, loading, error] = useFilterGames(searchName, selectDbApi, selectGenre);
 
-    }
-  },[searchName])
+  useEffect(() => {
+    setgames(games);
+    setLoadingFilters(loading);
+    setError(error);
+  }, [games, loading, error,selectGenre,selectDbApi]);
 
-  const handleSearcheChange =  (event) => {
+
+
+
+  const handleSearcheChange = (event) => {
     let target = event.target.name;
     let value = event.target.value;
-
 
     setsearchName({
       ...searchName,
@@ -46,11 +57,18 @@ export default function FilterName({setError}) {
         type="text"
         placeholder="search"
       />
-      <FontAwesomeIcon
-        icon={faSearch}
-        className={style.searchIcon}
-        style={{ color: "white" }}
-      />
+      {!loadingFilters && (
+        <FontAwesomeIcon
+          icon={faSearch}
+          className={style.searchIcon}
+          style={{ color: "white" }}
+        />
+      )}
+      <div id={style.spinner}>
+        {loadingFilters && (
+          <Ring size={30} lineWeight={5} speed={2} color="white" />
+        )}
+      </div>
     </div>
   );
 }

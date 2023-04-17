@@ -6,12 +6,17 @@ import validate from "./validate";
 import style from "./Form.module.css";
 import Loading from "../Loading/Loading";
 
+
+
+
+
 export default function Form() {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
+  const [img, setImg] = useState(null);
 
   //stado global GENEROS Y PLATAFORMAS
   const state = useSelector((state) => ({
@@ -28,6 +33,7 @@ export default function Form() {
     platforms: [],
     genres: [],
     rating: "",
+    platformsName:[]
   });
 
   useEffect(() => {
@@ -43,6 +49,7 @@ export default function Form() {
   //manejador de eventos para el input de tipo file y el select
   const handleChange = (event) => {
     const { name, value, files, options, id } = event.target;
+    // console.log(files);
 
     if (name === "background_image") {
       //FileRader solo puede acceder al contenido de los archivos que el usuario ha seleccionado explícitamente, ya sea usando un elemento HTML <input type="file"> o arrastrando y soltando. No se puede usar para leer un archivo por nombre de ruta del sistema de archivos del usuario
@@ -50,20 +57,37 @@ export default function Form() {
         ...input,
         background_image: files[0],
       });
+
+      const imgShow = document.getElementById("selected-image")
+      console.log(imgShow);
+      const reader = new FileReader();
+
+      reader.addEventListener("load",(event)=>{
+        console.log(event);
+       imgShow.src = event.target.result;
+      })
+      
+      reader.readAsDataURL(files[0])
+
     } else if (name === "platforms") {
       // actualizando el estado de las plataformas seleccionadas
       //recorrer opctions lugar donde estan todas las opciones del select
       //con la propiedad selected indentificamos las selecionadas
       //por ultimo set up el stado
-      const selectedValues = [];
+      const selectedValuesid = [];
+      const selectedValuesname = [];
+
       for (let i = 0; i < options.length; i++) {
         if (options[i].selected) {
-          selectedValues.push(options[i].id);
+          selectedValuesid.push(options[i].id);
+          selectedValuesname.push(options[i].value);
         }
       }
       setInput({
         ...input,
-        platforms: [...selectedValues],
+        platforms: [...selectedValuesid],
+        platformsName:[...selectedValuesname]
+
       });
     } else if (name === "genres") {
       const selectedValues = [];
@@ -115,6 +139,7 @@ export default function Form() {
         platforms: [],
         genres: [],
         rating: "",
+        platformsName:[]
       })
      
     });
@@ -130,41 +155,55 @@ export default function Form() {
           method="post"
           encType="multipart/form-data"
         >
-          <div className={style.name}>
-            <label>Name</label>
+        {message && <p id={style.msg}>{message?.msg}</p>}
+          <div className={style.name_wrapper} >
+           <div className={style.name}>
+           <label>Name*</label>
             <input
               onChange={handleChange}
               name={"name"}
               type="text"
               value={input.name}
-              required
+              id={error?.name ? style.error : null }
             />
+           </div>
+          <div>
+          {error && <p>{error?.name}</p>}
           </div>
-          {error && error?.name}
+          </div>
+          
 
-          <div className={style.background_image}>
-            <label>Image</label>
+          <div className={style.background_image_wrapper}>
+            <div className={style.background_image}>
+            <label>Image*</label>
             <input
+            title="Please select an image file"
               onChange={handleChange}
               accept="image/*"
               name={"background_image"}
               type="file"
-            />
+              />
+          <img id="selected-image" src=""/>
+            </div>
+            <div>
+            {error && <p>{error?.background_image}</p> }
+
+            </div>
+      
           </div>
-            {error && error?.background_image}
 
           <div className={style.description}>
-            <label>Description</label>
+            <label>Description*</label>
             <textarea
               onChange={handleChange}
               name={"description"}
               type="text"
             />
-          </div>
           {error && error?.description}
+          </div>
 
           <div className={style.container_genres}>
-            <label>Genres</label>
+            <label>Genres*</label>
             <div className={style.genres}>
               {state?.genres.map((genre) => {
                 return (
@@ -182,22 +221,21 @@ export default function Form() {
               })}
             </div>
           </div>
-          {error && error?.genres}
+          {error && <p className={style.error}>{error?.genres}</p>}
 
           <div className={style.release}>
-            <label>Realese</label>
+            <label>Release*</label>
             <input
               onChange={handleChange}
               name={"release"}
               type="date"
-              required
-              oninvalid="this.setCustomValidity('User ID is a must')"
+              
               />
           </div>
-          {error && error?.release}
+          {error && <p className={style.error}>{error?.release}</p>}
 
           <div className={style.platforms}>
-            <label>Platforms</label>
+            <label>Platforms*</label>
             <select
               multiple
               id="platforms"
@@ -217,11 +255,16 @@ export default function Form() {
                 );
               })}
             </select>
+           <div className={style.platformsName}>
+           {input.platformsName && input.platformsName.map(platform=>{
+              return <p>{platform}</p>
+            })}
+           </div>
           </div>
-          {error && error?.platforms}
-
+          <p className={style.error}>{error && error?.platforms}</p>
+          
           <div className={style.rating}>
-            <label>Reting</label>
+            <label>Rating*</label>
             <input
               onChange={handleChange}
               name={"rating"}
@@ -231,10 +274,10 @@ export default function Form() {
               required
             />
           </div>
-          {error && error?.rating}
+          <p className={style.error}>{error && error?.rating}</p>
+          
 
-          <input type="submit" />
-          {message && <p id={style.msg}>{message?.msg}</p>}
+          <input type="submit" id={style.submit} value={"New Game +"} />
         </form>
       )}
     </div>

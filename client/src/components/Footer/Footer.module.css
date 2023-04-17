@@ -1,3 +1,5 @@
+
+
 .container{
     background-color:#444444;
     opacity: 0.9; /* Cambia este valor para ajustar el contraste */
@@ -7,7 +9,7 @@
     flex-wrap: wrap;
     flex-direction: column; */
     color: white;
-    padding: 20px;
+    padding: 5px;
     /* height: 100%; */
     margin-top: auto;
 }
@@ -16,8 +18,8 @@
 
 }
 .icon{
-    margin:5px;
-    height: 50px;
+    margin:3px;
+    height: 30px;
 }
 #linkedin{
     color:#0077B5;

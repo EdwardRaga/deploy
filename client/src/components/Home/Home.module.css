@@ -1,24 +1,27 @@
 body{
-    background-color: #53595d
-
- 
+    background-color: #53595d;
 }
 .wrapper{
+    margin-bottom: 100px; 
+    height: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+   
+    
     }
     
-     
-  
 .main{    
     margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
-    font-family:playfair;
-    justify-content: center; 
+    justify-content: center;
+
     
     }
         .filterSection{
-            /* background-color: brown; */
-            width: auto;
+            min-width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -101,9 +104,13 @@ body{
     }
     
     .paginate{
-        margin: 5px;
-        padding: 20px;
-        min-height: 100%;
+        margin-bottom: -50px;
+        padding: 10px;
         display: flex;
         justify-content: center;
     }
+#error{
+    color: white;
+    margin: 5px;
+   
+}

@@ -6,14 +6,15 @@ import { filters } from "../../../redux/action/action";
 import { faSortAlphaUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const FilterAZ = () => {
-  const state = useSelector((state) => state.copygames);
+const FilterAZ = ({games,setgames}) => {
+  const state = useSelector((state) => state.videogames);
   const dispatch = useDispatch();
 
   const handleButtonClick = (event) => {
 
     event.preventDefault();
-    dispatch(filters(filter(state)));
+    // setgames(filter(games));
+    dispatch(filters(filter(games)));
   };
 
   return (
