@@ -3,7 +3,7 @@ import style from "../FilterName/FilterName.module.css";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
-import useFilterGames from "../../HooksCustom/useFilterGames";
+import useFilterGames from "../../HooksCustom/userFilterGames";
 import { Ring } from "@uiball/loaders";
 
 //iconos
